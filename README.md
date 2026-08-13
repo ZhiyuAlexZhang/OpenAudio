@@ -108,6 +108,7 @@ Audio Plugins
 | [Eurorack](https://github.com/VCVRack/AudibleInstruments) | Diverse set of physical modeling sources, organic processors, wavetable oscillators, waveshapers, granular synths, and utility modules | Misc | N/A |
 | [Farbrausch V2 Synthesizer System, Revived](https://github.com/EZForever/Viruz2) | Fork of the original V2 codebase, including libv2, synth plugins and more, all with x64 support. | Instrument | N/A |
 | [FaustSynth](https://github.com/ZhiyuAlexZhang/FaustSynth) | Monophonic synthesizer built with the Faust programming language | Instrument | Faust, JUCE |
+| [Feral](https://github.com/jmcgill-public/feral) | Free dirt pedal dedicated to Jimothy | Effect | JUCE |
 | [FILT-R](https://github.com/tiagolr/filtr) | FILT-R is a cross-platform filter modulator based on plugins like ShaperBox and FilterShaper. It is the second version of [FLTR-1 JSFX](https://github.com/tiagolr/tilr_jsfx?tab=readme-ov-file) | Effect | JUCE |
 | [Fire](https://github.com/jerryuhoo/Fire) | This is a multi-band distortion plugin [『Fire』](https://www.bluewingsmusic.com/fire.html). | Effect | JUCE |
 | [Flappy Chord](https://github.com/odoare/FlappyChord) | Flappy Chord is a simple prototype of musical game that reimagines the classic "Flappy Bird" formula as a fun tool for learning music. The bird is controlled by playing notes and chords on a connected MIDI keyboard. | Effect | JUCE |
