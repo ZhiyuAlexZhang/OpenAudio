@@ -379,6 +379,7 @@ Audio Apps
 | [OwlPlug](https://owlplug.com/) | [DropSnorz/OwlPlug](https://github.com/DropSnorz/OwlPlug) | Audio plugin manager |
 | [Patchcab](https://github.com/spectrome/patchcab) | [spectrome/patchcab](https://github.com/spectrome/patchcab) | Modular Eurorack style synthesizer made with Web Audio |
 | [Psycle](http://psycle.pastnotecut.org/portal.php) | [SourceForge → psycle](https://sourceforge.net/projects/psycle) | Modular music tracker |
+| [PulseQuaver](https://valent-in.github.io/pulseq) | [Valent-in/pulseq](https://github.com/Valent-in/pulseq) | Minimalistic web-application for creating electronic music with digital synthesizers. Initially designed as sketching tool but can be used for making full-fledged tracks |
 | [ReBuzz Digital Audio Workstation](https://github.com/wasteddesign/ReBuzz) | [/ReBuzz](https://github.com//ReBuzz) | ReBuzz is a modular digital audio workstation (DAW) built upon the foundation of [Jeskola Buzz](https://jeskola.net/buzz/) software. Written in C |
 | [SampleScanner](https://github.com/psobot/SampleScanner) | [psobot/SampleScanner](https://github.com/psobot/SampleScanner) | Tool for auto-sampling hardware instruments |
 | [SFZ to HISE converter](https://keypleezer.com/sfz-to-hise-converter/) | [anderseklov/SFZ-to-HISE-converter](https://github.com/anderseklov/SFZ-to-HISE-converter) | JavaScript app that translates SFZ instrument files into HISE samplemaps and JSON data objects. Runs in a modern web browser. MIT license. |
