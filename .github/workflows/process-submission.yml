@@ -1,0 +1,454 @@
+name: Process Submission
+
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Issue number to process (for example: 123)"
+        required: true
+        type: string
+
+jobs:
+  process:
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      startsWith(github.event.issue.title, '[Plugin]') ||
+      startsWith(github.event.issue.title, '[App]') ||
+      startsWith(github.event.issue.title, '[Library]') ||
+      startsWith(github.event.issue.title, '[Collection]')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "240"
+
+      - name: Install dependencies
+        run: cd generator && npm ci
+
+      - name: Parse issue and create entry
+        id: parse
+        uses: actions/github-script@v9
+        with:
+          script: |
+            let issueNumber;
+            let issue;
+
+            if (context.eventName === 'workflow_dispatch') {
+              const rawIssueNumber = `${context.payload.inputs?.issue_number ?? ''}`.trim();
+              issueNumber = Number.parseInt(rawIssueNumber, 10);
+
+              if (!Number.isInteger(issueNumber) || issueNumber <= 0) {
+                core.setFailed('Invalid issue_number input. Provide a positive integer.');
+                return;
+              }
+
+              const response = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber
+              });
+              issue = response.data;
+            } else {
+              issue = context.payload.issue;
+              issueNumber = issue.number;
+            }
+
+            const body = issue.body;
+            const title = issue.title;
+
+            // Determine type from title prefix
+            const isPlugin = title.startsWith('[Plugin]');
+            const isApp = title.startsWith('[App]');
+            const isLibrary = title.startsWith('[Library]');
+            const isCollection = title.startsWith('[Collection]');
+
+            if (!isPlugin && !isApp && !isLibrary && !isCollection) {
+              core.setFailed('Issue title must start with [Plugin], [App], [Library], or [Collection].');
+              return;
+            }
+
+            // Parse form fields from issue body
+            const parseField = (fieldName) => {
+              const regex = new RegExp(`### ${fieldName}\\s*\\n\\s*([^\\n#]+)`, 'i');
+              const match = body.match(regex);
+              if (!match) return '';
+              const value = match[1].trim();
+              return value === '_No response_' ? '' : value;
+            };
+
+            const parseMultiSelect = (fieldName) => {
+              const regex = new RegExp(`### ${fieldName}\\s*\\n\\s*([^#]+?)(?=###|$)`, 'i');
+              const match = body.match(regex);
+              if (!match) return [];
+              return match[1]
+                .split(',')
+                .map(s => s.trim())
+                .filter(s => s && s !== '_No response_' && s.toLowerCase() !== 'none' && s.toLowerCase() !== 'no framework');
+            };
+
+            const normalizeRepository = (repoType, repoUser, repoName) => {
+              const normalizedUser = repoUser === '_No response_' ? '' : repoUser;
+              const normalizedName = repoName === '_No response_' ? '' : repoName;
+
+              if (!normalizedUser && ['GitHub', 'GitLab', 'Codeberg', 'SourceHut'].includes(repoType)) {
+                const patterns = {
+                  GitHub: /^(?:https?:\/\/)?(?:www\.)?github\.com\/([^/\s]+)\/([^/\s?#]+?)(?:\.git)?\/?$/i,
+                  GitLab: /^(?:https?:\/\/)?(?:www\.)?gitlab\.com\/([^/\s]+)\/([^/\s?#]+?)(?:\.git)?\/?$/i,
+                  Codeberg: /^(?:https?:\/\/)?(?:www\.)?codeberg\.org\/([^/\s]+)\/([^/\s?#]+?)(?:\.git)?\/?$/i,
+                  SourceHut: /^(?:https?:\/\/)?(?:git\.)?sr\.ht\/~?([^/\s]+)\/([^/\s?#]+?)(?:\.git)?\/?$/i,
+                };
+                const match = normalizedName.match(patterns[repoType]);
+
+                if (match) {
+                  return {
+                    repoUser: match[1],
+                    repoName: match[2],
+                  };
+                }
+              }
+
+              return {
+                repoUser: normalizedUser,
+                repoName: normalizedName,
+              };
+            };
+
+            let entry = {};
+            let targetFile = '';
+            let entryType = '';
+
+            if (isPlugin) {
+              entryType = 'plugin';
+              targetFile = 'data/plugins.json';
+              entry = {
+                name: parseField('Plugin Name'),
+                url: parseField('Plugin URL'),
+                description: parseField('Description'),
+                type: parseField('Plugin Type'),
+                frameworks: parseMultiSelect('Frameworks')
+              };
+            } else if (isApp) {
+              entryType = 'app';
+              targetFile = 'data/apps.json';
+              const repoType = parseField('Repository Type');
+              const {repoUser, repoName} = normalizeRepository(
+                repoType,
+                parseField('Repository User/Workspace'),
+                parseField('Repository Name'),
+              );
+
+              let repository = {};
+              if (repoType === 'GitHub' || repoType === 'GitLab' || repoType === 'Codeberg' || repoType === 'SourceHut') {
+                repository = { type: repoType, user: repoUser, repo: repoName };
+              } else if (repoType === 'Bitbucket') {
+                repository = { type: repoType, workspace: repoUser, repo: repoName };
+              } else if (repoType === 'SourceForge') {
+                repository = { type: repoType, project: repoName };
+              } else if (repoType === 'Assembla') {
+                repository = { type: repoType, space: repoName };
+              }
+
+              entry = {
+                name: parseField('App Name'),
+                description: parseField('Description'),
+                repository: repository
+              };
+
+              const url = parseField('App URL \\(optional\\)');
+              if (url && url !== '_No response_') {
+                entry.url = url;
+              }
+            } else if (isLibrary) {
+              entryType = 'library';
+              targetFile = 'data/libraries.json';
+              const repoType = parseField('Repository Type');
+              const {repoUser, repoName} = normalizeRepository(
+                repoType,
+                parseField('Repository User/Workspace'),
+                parseField('Repository Name'),
+              );
+
+              let repository = {};
+              if (repoType === 'GitHub' || repoType === 'GitLab' || repoType === 'Codeberg' || repoType === 'SourceHut') {
+                repository = { type: repoType, user: repoUser, repo: repoName };
+              } else if (repoType === 'Bitbucket') {
+                repository = { type: repoType, workspace: repoUser, repo: repoName };
+              } else if (repoType === 'SourceForge') {
+                repository = { type: repoType, project: repoName };
+              } else if (repoType === 'Assembla') {
+                repository = { type: repoType, space: repoName };
+              }
+
+              entry = {
+                name: parseField('Library Name'),
+                description: parseField('Description'),
+                repository: repository
+              };
+
+              const url = parseField('Library URL \\(optional\\)');
+              if (url && url !== '_No response_') {
+                entry.url = url;
+              }
+            } else if (isCollection) {
+              const collectionType = parseField('Type');
+              entryType = 'collection';
+
+              if (collectionType.toLowerCase().includes('resource')) {
+                targetFile = 'data/resources.json';
+              } else if (collectionType.toLowerCase().includes('sample')) {
+                targetFile = 'data/samples.json';
+              } else {
+                targetFile = 'data/collections.json';
+              }
+
+              entry = {
+                name: parseField('Name'),
+                url: parseField('URL'),
+                description: parseField('Description')
+              };
+            }
+
+            core.setOutput('entry', JSON.stringify(entry));
+            core.setOutput('targetFile', targetFile);
+            core.setOutput('entryType', entryType);
+            core.setOutput('entryName', entry.name);
+            core.setOutput('issueNumber', issueNumber.toString());
+
+      - name: Insert entry into JSON file
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+
+          const main = async () => {
+            const entry = JSON.parse(process.env.ENTRY);
+            const targetFile = process.env.TARGET_FILE;
+            const eol = '\n';
+            const defaultIndent = '  ';
+
+            // Track top-level object ranges so the new entry can be spliced into the source without reformatting existing items.
+            const collectTopLevelObjectRanges = source => {
+              const ranges = [];
+              let depth = 0;
+              let inString = false;
+              let isEscaped = false;
+              let objectStartIndex = -1;
+
+              for (let charIndex = 0; charIndex < source.length; charIndex += 1) {
+                const char = source[charIndex];
+
+                if (inString) {
+                  if (isEscaped) {
+                    isEscaped = false;
+                    continue;
+                  }
+
+                  if (char === '\\') {
+                    isEscaped = true;
+                    continue;
+                  }
+
+                  if (char === '"') {
+                    inString = false;
+                  }
+
+                  continue;
+                }
+
+                if (char === '"') {
+                  inString = true;
+                  continue;
+                }
+
+                if (char === '[' || char === '{') {
+                  if (char === '{' && depth === 1) {
+                    objectStartIndex = charIndex;
+                  }
+
+                  depth += 1;
+                  continue;
+                }
+
+                if (char === ']' || char === '}') {
+                  if (char === '}' && depth === 2 && objectStartIndex !== -1) {
+                    ranges.push({
+                      start: objectStartIndex,
+                      end: charIndex + 1,
+                    });
+                    objectStartIndex = -1;
+                  }
+
+                  depth -= 1;
+                }
+              }
+
+              return ranges;
+            };
+
+            const inferItemIndent = (source, ranges) => {
+              if (ranges.length === 0) {
+                return defaultIndent;
+              }
+
+              const firstItemStart = ranges[0].start;
+              const lineStart = source.lastIndexOf(eol, firstItemStart - 1);
+              const indent = lineStart === -1
+                ? ''
+                : source.slice(lineStart + 1, firstItemStart);
+              return /^[ \t]*$/.test(indent) ? indent : defaultIndent;
+            };
+
+            const formatEntry = (value, indent) =>
+              JSON.stringify(value, null, 2)
+                .split('\n')
+                .map(line => `${indent}${line}`)
+                .join(eol);
+
+            // Insert the formatted entry at the computed top-level position while preserving all untouched source text.
+            const insertEntryIntoArraySource = (source, value, insertIndex, itemCount, fileName) => {
+              const ranges = collectTopLevelObjectRanges(source);
+              const indent = inferItemIndent(source, ranges);
+              const formattedEntry = formatEntry(value, indent);
+
+              if (ranges.length === 0) {
+                const openBracketIndex = source.indexOf('[');
+                const closeBracketIndex = source.lastIndexOf(']');
+                return `${source.slice(0, openBracketIndex + 1)}${eol}${formattedEntry}${eol}${source.slice(closeBracketIndex)}`;
+              }
+
+              if (ranges.length !== itemCount) {
+                throw new Error(`Top-level JSON item range count (${ranges.length}) does not match parsed entry count (${itemCount}). This may indicate malformed JSON or unexpected file content in ${fileName}.`);
+              }
+
+              if (insertIndex === itemCount) {
+                const previousItemRange = ranges.at(-1);
+                return `${source.slice(0, previousItemRange.end)},${eol}${formattedEntry}${source.slice(previousItemRange.end)}`;
+              }
+
+              const nextItemRange = ranges[insertIndex];
+              return `${source.slice(0, nextItemRange.start)}${formattedEntry},${eol}${source.slice(nextItemRange.start)}`;
+            };
+
+            // Read existing data
+            const filePath = path.join(process.cwd(), targetFile);
+            const source = fs.readFileSync(filePath, 'utf8');
+            const data = JSON.parse(source);
+
+            // Find insertion index (alphabetical by name, case-insensitive, locale-aware)
+            const insertIndex = data.findIndex(item =>
+              item.name.localeCompare(entry.name, undefined, {sensitivity: 'accent'}) > 0
+            );
+
+            const normalizedInsertIndex = insertIndex === -1 ? data.length : insertIndex;
+            const updatedSource = insertEntryIntoArraySource(source, entry, normalizedInsertIndex, data.length, targetFile);
+
+            fs.writeFileSync(filePath, updatedSource);
+
+            console.log(`Inserted "${entry.name}" into ${targetFile}`);
+          };
+
+          main().catch(error => {
+            console.error('Failed to insert the submission entry into the target JSON file.');
+            console.error(error);
+            process.exit(1);
+          });
+          EOF
+        env:
+          ENTRY: ${{ steps.parse.outputs.entry }}
+          TARGET_FILE: ${{ steps.parse.outputs.targetFile }}
+
+      - name: Run validation tests
+        id: validate
+        run: |
+          cd generator
+          npm test -- --run 2>&1 | tee test-output.txt
+          echo "test_passed=$?" >> $GITHUB_OUTPUT
+        continue-on-error: true
+
+      - name: Create Pull Request
+        if: steps.validate.outcome == 'success'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          add-paths: |
+            ${{ steps.parse.outputs.targetFile }}
+          commit-message: "Add ${{ steps.parse.outputs.entryType }}: ${{ steps.parse.outputs.entryName }}"
+          branch: submission/${{ steps.parse.outputs.entryType }}/${{ steps.parse.outputs.issueNumber }}
+          title: "Add ${{ steps.parse.outputs.entryType }}: ${{ steps.parse.outputs.entryName }}"
+          body: |
+            ## Automated Submission
+
+            This PR was automatically generated from issue #${{ steps.parse.outputs.issueNumber }}.
+
+            **Type:** ${{ steps.parse.outputs.entryType }}
+            **Name:** ${{ steps.parse.outputs.entryName }}
+
+            ### Entry Details
+            ```json
+            ${{ steps.parse.outputs.entry }}
+            ```
+
+            ---
+
+            ✅ Validation tests passed
+
+            Please review this submission before merging.
+
+            Closes #${{ steps.parse.outputs.issueNumber }}
+          labels: |
+            submission
+            needs-review
+
+      - name: Comment on issue (success)
+        if: steps.validate.outcome == 'success'
+        uses: actions/github-script@v9
+        env:
+          ISSUE_NUMBER: ${{ steps.parse.outputs.issueNumber }}
+        with:
+          script: |
+            const issueNumber = Number.parseInt(process.env.ISSUE_NUMBER, 10);
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: `✅ Your submission has been processed successfully!\n\nA pull request has been created for review. Once approved by a maintainer, your entry will be added to the list.\n\nThank you for contributing!`
+            });
+
+      - name: Comment on issue (failure)
+        if: steps.validate.outcome == 'failure'
+        uses: actions/github-script@v9
+        env:
+          ISSUE_NUMBER: ${{ steps.parse.outputs.issueNumber }}
+        with:
+          script: |
+            const issueNumber = Number.parseInt(process.env.ISSUE_NUMBER, 10);
+            const fs = require('fs');
+            const testOutput = fs.readFileSync('generator/test-output.txt', 'utf8');
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: `❌ Your submission could not be validated. Please check the details below and update your submission.\n\n<details>\n<summary>Validation Output</summary>\n\n\`\`\`\n${testOutput}\n\`\`\`\n</details>\n\nCommon issues:\n- Missing required fields\n- Invalid URL format\n- Invalid repository information`
+            });
+
+            github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              labels: ['validation-failed']
+            });

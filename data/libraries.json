@@ -10,6 +10,16 @@
     }
   },
   {
+    "name": "AudioPlugSharp",
+    "url": "https://github.com/mikeoliphant/AudioPlugSharp/",
+    "description": "Easily create VST (VST3) audio plugins in C# .NET",
+    "repository": {
+      "type": "GitHub",
+      "user": "mikeoliphant",
+      "repo": "AudioPlugSharp"
+    }
+  },
+  {
     "name": "Avendish",
     "url": "https://celtera.github.io/avendish",
     "description": "C++20 framework for any sort of audio / video / midi media objects",
@@ -70,9 +80,19 @@
     }
   },
   {
+    "name": "DawVert",
+    "url": "https://github.com/SatyrDiamond/DawVert",
+    "description": "DAW Project File Converter written in Python",
+    "repository": {
+      "type": "GitHub",
+      "user": "SatyrDiamond",
+      "repo": "DawVert"
+    }
+  },
+  {
     "name": "DPF",
     "url": "https://distrho.sourceforge.io/",
-    "description": "C++ framework for creating cross-platform audio plugins. DPF can build for LADSPA, DSSI, LV2, and VST formats.",
+    "description": "C++ framework for creating cross-platform audio plugins. DPF can build for LADSPA, DSSI, LV2, VST2, VST3, CLAP, and AU formats.",
     "repository": {
       "type": "GitHub",
       "user": "DISTRHO",
@@ -122,7 +142,7 @@
   {
     "name": "Heavy",
     "url": "https://wasted-audio.github.io/hvcc/",
-    "description": "The heavy hvcc compiler for Pure Data patches. With generators for Bela, Fabric, js, pdext, Unity, Daisy, DPF, and Wwise frameworks.",
+    "description": "The heavy hvcc compiler for Pure Data patches. With generators for Daisy, DPF, FMOD, JS, OWL, PD External, Unity, and Wwise frameworks.",
     "repository": {
       "type": "GitHub",
       "user": "Wasted-Audio",
@@ -179,6 +199,15 @@
     }
   },
   {
+    "name": "Nallely",
+    "description": "Python library meta-synth oriented for scripting your MIDI devices, create virtual modules (LFOs, Envelope Generator, graphical visuals, ...), map all of them together dynamically. Also provides a websocket-bus to create visuals/modules with other languages and a websocket-based protocol to control the core library at run time.",
+    "repository": {
+      "type": "GitHub",
+      "user": "dr-schlange",
+      "repo": "nallely-midi"
+    }
+  },
+  {
     "name": "NIH-plug",
     "description": "Rust VST3 and CLAP plugin framework and plugins",
     "repository": {
@@ -197,6 +226,16 @@
     }
   },
   {
+    "name": "Qubx",
+    "url": "https://github.com/PasqualeMainolfi/Qubx",
+    "description": "Rust library for queue-based multithreaded real-time parallel audio streams processing and management",
+    "repository": {
+      "type": "GitHub",
+      "user": "PasqualeMainolfi",
+      "repo": "Qubx"
+    }
+  },
+  {
     "name": "r-audio",
     "url": "https://github.com/bbc/r-audio",
     "description": "A library of React components for building Web Audio graphs.",
@@ -204,16 +243,6 @@
       "type": "GitHub",
       "user": "bbc",
       "repo": "r-audio"
-    }
-  },
-  {
-    "name": "React-JUCE",
-    "url": "https://docs.react-juce.dev/",
-    "description": "React-JUCE (formerly named Blueprint) is a hybrid JavaScript/C++ framework that enables a React.js frontend for a JUCE application or plugin.",
-    "repository": {
-      "type": "GitHub",
-      "user": "JoshMarler",
-      "repo": "react-juce"
     }
   },
   {
@@ -236,7 +265,7 @@
   },
   {
     "name": "RustAudio",
-    "url": "https://rust-audio.discourse.group/",
+    "url": "https://rust.audio/",
     "description": "Collection of audio processing and plugin libraries for the Rust language",
     "repository": {
       "type": "GitHub",
@@ -324,12 +353,22 @@
   },
   {
     "name": "WebAudioModules",
-    "url": "https://webaudiomodules.org/",
+    "url": "https://www.webaudiomodules.com",
     "description": "WAM (WebAudioModules) — synthesizers and audio effects processors for web browsers",
     "repository": {
       "type": "GitHub",
       "user": "webaudiomodules",
-      "repo": "api"
+      "repo": ""
+    }
+  },
+  {
+    "name": "WEBMIDI.js",
+    "url": "https://webmidijs.org/",
+    "description": "WEBMIDI.js makes it easy to interact with MIDI instruments directly from a web browser or from Node.js",
+    "repository": {
+      "type": "GitHub",
+      "user": "djipco",
+      "repo": "webmidi"
     }
   }
 ]

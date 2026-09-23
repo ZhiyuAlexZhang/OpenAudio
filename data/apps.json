@@ -1,5 +1,15 @@
 [
   {
+    "name": "4Track",
+    "description": "4track.cc is a web-based reimagining of a classic 4-track tape recorder, built with Svelte 5. Users can record, mix, and play back audio across four independent tracks, like the physical cassette recorders used by home musicians. Finished recordings (\"cassettes\") can be saved locally or shared with others via a link.",
+    "repository": {
+      "type": "GitHub",
+      "user": "https://github.com/andreboekhorst/",
+      "repo": "4-track-recorder"
+    },
+    "url": "https://www.4track.cc"
+  },
+  {
     "name": "ADSR",
     "url": "https://adsr.vercel.app/",
     "description": "Simple web-based ADSR synth",
@@ -49,6 +59,16 @@
     }
   },
   {
+    "name": "Bosca Ceoil",
+    "url": "https://boscaceoil.net/",
+    "description": "Fun stand-alone beginner synthesiser",
+    "repository": {
+      "type": "GitHub",
+      "user": "TerryCavanagh",
+      "repo": "boscaceoil"
+    }
+  },
+  {
     "name": "butterDAWg",
     "url": "https://github.com/Jaybee18/butterDAWg",
     "description": "DAW (WIP)",
@@ -80,13 +100,53 @@
   },
   {
     "name": "Coincident Spectra",
-    "url": "https://coincident-spectra.fission.app/",
+    "url": "https://github.com/bgins/coincident-spectra",
     "description": "A spectral-microtuning additive synthesizer",
     "repository": {
       "type": "GitHub",
       "user": "bgins",
       "repo": "coincident-spectra"
     }
+  },
+  {
+    "name": "ComposeYogi",
+    "description": "The open-source Ableton-style music composer for the web",
+    "repository": {
+      "type": "GitHub",
+      "user": "AppsYogi-com",
+      "repo": "ComposeYogi"
+    },
+    "url": "https://composeyogi.com"
+  },
+    {
+    "name": "ConvertWithMoss",
+    "description": "Converts multisamples from a source format (WAV, multisample, KMP, wavestate, NKI, SFZ, SoundFont 2) to a different destination format.",
+    "repository": {
+      "type": "GitHub",
+      "user": "git-moss",
+      "repo": "ConvertWithMoss"
+    },
+    "url": "https://www.mossgrabers.de/Software/ConvertWithMoss/ConvertWithMoss.html"
+  },
+{
+    "name": "Drum Beat Repo",
+    "url": "https://github.com/babali42/drumbeatrepo",
+    "description": "An interactive library of drums patterns",
+    "repository": {
+      "type": "GitHub",
+      "user": "babali42",
+      "repo": "drumbeatrepo"
+    }
+  },
+  {
+    "name": "Easy Effects",
+    "description": "Limiter, compressor, convolver, equalizer and auto volume and many other plugins for PipeWire applications",
+    "repository": {
+      "type": "GitHub",
+      "user": "wwmm",
+      "repo": "easyeffects"
+    },
+    "url": "https://wwmm.github.io/easyeffects/"
   },
   {
     "name": "Element",
@@ -109,12 +169,41 @@
     }
   },
   {
+    "name": "EmuSC",
+    "description": "EmuSC is a software synthesizer that aims to emulate the Roland Sound Canvas SC-55 lineup to recreate the original sounds of these '90s era synthesizers. Emulation is done by extracting relevant information from the original control and PCM ROMs and reimplement the synth's behavior in modern C+",
+    "repository": {
+      "type": "GitHub",
+      "user": "skjelten",
+      "repo": "emusc"
+    }
+  },
+  {
+    "name": "FFAB",
+    "description": "FFAB is a cross-platform, complex audio batch processor, drag & drop effects rack, command builder & graphical user interface for FFmpeg. Audio only, but with video passthrough. Easily create filter chains, save presets, run or export FFmpeg commands, multi-input/-output batching algorithms, divide jobs across parallel FFmpeg instances... with full logs to file. It does everything FFmpeg does, but in a less cryptic manner.",
+    "repository": {
+      "type": "GitHub",
+      "user": "disuye",
+      "repo": "FFAB"
+    },
+    "url": "https://www.disuye.com/ffab"
+  },
+  {
     "name": "FlexASIO",
     "description": "Universal ASIO driver for Windows",
     "repository": {
       "type": "GitHub",
       "user": "dechamps",
       "repo": "FlexASIO"
+    }
+  },
+  {
+    "name": "Furnace",
+    "url": "https://github.com/tildearrow/furnace",
+    "description": "Tracker sequencer with a huge selection of game system chips",
+    "repository": {
+      "type": "GitHub",
+      "user": "tildearrow",
+      "repo": "furnace"
     }
   },
   {
@@ -187,6 +276,15 @@
     }
   },
   {
+    "name": "Kholors",
+    "description": "A digital audio workstation without tracks and where you edit samples in the frequency domains directly. See [this demo](https://www.youtube.com/watch?v=TeF4ExiSIbU).",
+    "repository": {
+      "type": "GitHub",
+      "user": "QuentinFAIDIDE",
+      "repo": "Kholors"
+    }
+  },
+  {
     "name": "LMMS",
     "url": "https://lmms.io/",
     "description": "DAW",
@@ -194,6 +292,36 @@
       "type": "GitHub",
       "user": "LMMS",
       "repo": "lmms"
+    }
+  },
+  {
+    "name": "Matchering 2.0",
+    "description": "Open-source web application for automatic reference-based audio mastering.",
+    "repository": {
+      "type": "GitHub",
+      "user": "sergree",
+      "repo": "matchering"
+    },
+    "url": "https://pypi.org/project/matchering/"
+  },
+  {
+    "name": "Mididash",
+    "description": "Mididash is an open source MIDI routing software with a node-based interface and Lua scripting. A modern take on programs like [MIDI-OX](http://www.midiox.com/).",
+    "repository": {
+      "type": "GitHub",
+      "user": "tiagolr",
+      "repo": "mididash"
+    },
+    "url": "https://tiagolr.github.io/mididash/"
+  },
+  {
+    "name": "Musescore",
+    "url": "https://musescore.org/en",
+    "description": "A notation and sheet music app",
+    "repository": {
+      "type": "GitHub",
+      "user": "musescore",
+      "repo": "Musescore"
     }
   },
   {
@@ -217,6 +345,15 @@
     }
   },
   {
+    "name": "OpenDaw",
+    "description": "A free, open-source Digital Audio Workstation for Windows, macOS, and Linux",
+    "repository": {
+      "type": "GitHub",
+      "user": "glenwrhodes",
+      "repo": "OpenDaw"
+    }
+  },
+  {
     "name": "OpenMPT",
     "url": "https://openmpt.org/",
     "description": "Popular tracker (formerly ModPlug Tracker) for Windows with support for IT, XM, S3M, MOD modules, VST plugins and ASIO",
@@ -225,6 +362,26 @@
       "user": "OpenMPT",
       "repo": "openmpt"
     }
+  },
+  {
+    "name": "OpenUtau",
+    "url": "https://www.openutau.com/",
+    "description": "Singing synthesis platform for Windows, Mac and Linux that support UTAU voicebanks and machine learning voicebanks.",
+    "repository": {
+      "type": "GitHub",
+      "user": "stakira",
+      "repo": "OpenUtau"
+    }
+  },
+  {
+    "name": "OpenX32",
+    "description": "Linux and Custom Firmware for the Behringer X32 Audio-Mixing-Console.",
+    "repository": {
+      "type": "GitHub",
+      "user": "OpenMixerProject",
+      "repo": "OpenX32"
+    },
+    "url": "https://discourse.openmixerproject.de/"
   },
   {
     "name": "orDrumbox",
@@ -257,7 +414,7 @@
   },
   {
     "name": "Patchcab",
-    "url": "https://patch.cab",
+    "url": "https://github.com/spectrome/patchcab",
     "description": "Modular Eurorack style synthesizer made with Web Audio",
     "repository": {
       "type": "GitHub",
@@ -275,6 +432,26 @@
     }
   },
   {
+    "name": "PulseQuaver",
+    "url": "https://valent-in.github.io/pulseq",
+    "description": "Minimalistic web-application for creating electronic music with digital synthesizers. Initially designed as sketching tool but can be used for making full-fledged tracks",
+    "repository": {
+      "type": "GitHub",
+      "user": "Valent-in",
+      "repo": "pulseq"
+    }
+  },
+    {
+    "name": "ReBuzz Digital Audio Workstation",
+    "description": "ReBuzz is a modular digital audio workstation (DAW) built upon the foundation of [Jeskola Buzz](https://jeskola.net/buzz/) software. Written in C",
+    "repository": {
+      "type": "GitHub",
+      "user": "",
+      "repo": "ReBuzz"
+    },
+    "url": "https://github.com/wasteddesign/ReBuzz"
+  },
+{
     "name": "SampleScanner",
     "url": "https://github.com/psobot/SampleScanner",
     "description": "Tool for auto-sampling hardware instruments",
@@ -315,6 +492,36 @@
     }
   },
   {
+    "name": "SonoBus",
+    "description": "SonoBus is an easy to use application for streaming high-quality, low-latency peer-to-peer audio between devices over the internet or a local network.",
+    "repository": {
+      "type": "GitHub",
+      "user": "sonosaurus",
+      "repo": "sonobus"
+    },
+    "url": "https://sonobus.net/"
+  },
+  {
+    "name": "Soundshed",
+    "url": "https://soundshed.com",
+    "description": "Browse and manage favourite tones, control your smart amp/fx (Spark Amp etc), jam to video backing tracks, learn chords and scales.",
+    "repository": {
+      "type": "GitHub",
+      "user": "soundshed",
+      "repo": "soundshed-app"
+    }
+  },
+  {
+    "name": "SpectMorph",
+    "description": "SpectMorph is a free software project which allows to analyze samples of musical instruments, and to combine them (morphing). It can be used to construct hybrid sounds, for instance a sound between a trumpet and a flute; or smooth transitions, for instance a sound that starts as a trumpet and then gradually changes to a flute",
+    "repository": {
+      "type": "GitHub",
+      "user": "swesterfeld",
+      "repo": "spectmorph"
+    },
+    "url": "https://www.spectmorph.org/"
+  },
+  {
     "name": "Stargate DAW",
     "description": "Cross-platform, all-in-one DAW and plugin suite",
     "repository": {
@@ -324,13 +531,22 @@
     }
   },
   {
+    "name": "Strauss",
+    "description": "Strauss is a Digital Audio Workstation / Notation software that attempts to create a more efficient workflow for the modern composer",
+    "repository": {
+      "type": "GitHub",
+      "user": "Noahdw",
+      "repo": "Strauss"
+    }
+  },
+  {
     "name": "StudioRack",
     "url": "https://studiorack.github.io/studiorack-site/",
     "description": "Audio plugin manager",
     "repository": {
       "type": "GitHub",
       "user": "studiorack",
-      "repo": "studiorack"
+      "repo": "studiorack-app"
     }
   },
   {
@@ -351,6 +567,15 @@
       "type": "GitHub",
       "user": "VCVRack",
       "repo": "Rack"
+    }
+  },
+  {
+    "name": "VocalShaper",
+    "description": "A JUCE-based Open Source DAW. This DAW is lightweight and can meet most daily usage needs.",
+    "repository": {
+      "type": "GitHub",
+      "user": "Do-sth-sharp",
+      "repo": "VocalShaper"
     }
   },
   {
