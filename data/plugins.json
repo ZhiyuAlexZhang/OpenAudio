@@ -853,6 +853,15 @@
     ]
   },
   {
+    "name": "Grisey",
+    "url": "https://github.com/ZhiyuAlexZhang/Grisey",
+    "description": "Free, open-source metering suite: LUFS loudness (EBU R 128), true peak, spectrum, spectrogram and goniometer in one window",
+    "type": "Effect",
+    "frameworks": [
+      "JUCE"
+    ]
+  },
+  {
     "name": "GroovOliou",
     "url": "https://github.com/oliou/GroovOliou",
     "description": "Simple drum sample player that easily browses a long list of samples.",
@@ -1258,15 +1267,6 @@
     "name": "MultiBandEQ",
     "url": "https://github.com/GiorgosChr/MultiBandEQ",
     "description": "A multi-band equalizer audio plugin built with [JUCE](https://juce.com/)",
-    "type": "Effect",
-    "frameworks": [
-      "JUCE"
-    ]
-  },
-  {
-    "name": "MultiMeter",
-    "url": "https://github.com/RealAlexZ/MultiMeter",
-    "description": "A comprehensive set of AU/VST audio analysis tools (level meters, histograms, spectrogram analyzer, goniometer, correlation meter)",
     "type": "Effect",
     "frameworks": [
       "JUCE"

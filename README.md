@@ -126,6 +126,7 @@ Audio Plugins
 | [GATE-12](https://github.com/tiagolr/gate12) | GATE-12 is a cross-platform envelope generator for gate/volume control inspired by plugins like GrossBeat and ShaperBox. It is the second version of [GATE-1](https://github.com/tiagolr/gate1) rebuilt from scratch using the JUCE framework. | Effect | JUCE |
 | [Grace](https://github.com/s-oram/Grace) | [Grace](http://onesmallclue.com/plugin/grace/) is Sampler VST Plugin for Windows | Instrument | N/A |
 | [Gripverb](https://github.com/ashaydave/Gripverb) | Gripverb is an implementation of a Schroeder reverb (4 all-pass filters into 8 comb filters) in JUCE. | Effect | JUCE |
+| [Grisey](https://github.com/ZhiyuAlexZhang/Grisey) | Free, open-source metering suite: LUFS loudness (EBU R 128), true peak, spectrum, spectrogram and goniometer in one window | Effect | JUCE |
 | [GroovOliou](https://github.com/oliou/GroovOliou) | Simple drum sample player that easily browses a long list of samples. | Instrument | JUCE |
 | [GuitarD](https://github.com/TobiasKozel/GuitarD) | It's a basic multi effects processor which follows a node based approach. It's fairly unstable and experimental but contains most of the important features. | Effect | iPlug2 |
 | [Gverb/Gigaverb](https://github.com/v7b1/gigaverb) | Reverb | Effect | VSTGUI |
@@ -173,7 +174,6 @@ Audio Plugins
 | [Modal Synthesiser](https://github.com/crispinha/modal-synth) | This is a software synthesiser that uses modal synthesis, a physical modelling technique using banks of resonators to filter an exciter signal, to create sounds with a parametrically controlled frequency spectrum. This synthesiser is designed to allow for the composition and performance of spectral music, and it produces sounds with timbres similar to those of natural materials such as wood, metal, and glass. | Instrument | JUCE |
 | [modEQ](https://github.com/tobanteAudio/modEQ) | EQ with modulation (VST3, AU) | Effect | JUCE |
 | [MultiBandEQ](https://github.com/GiorgosChr/MultiBandEQ) | A multi-band equalizer audio plugin built with [JUCE](https://juce.com/) | Effect | JUCE |
-| [Grisey](https://github.com/ZhiyuAlexZhang/Grisey) | Free, open-source metering suite: LUFS loudness (EBU R 128), true peak, spectrum, spectrogram and goniometer in one window | Effect | JUCE |
 | [Musializer Plugin](https://github.com/ameyakakade/musializer-plugin) | Spectrum visualizer plugin | Misc | JUCE |
 | [MVerb](https://github.com/martineastwood/mverb) | Studio-quality reverb using the Dattorro’s figure-of-eight reverb structure | Effect | VSTGUI |
 | [ndc Plugs](https://www.niallmoody.com/ndcplugs/plugins.htm) | VST plugins for Windows and OSX | Misc | VSTGUI |
