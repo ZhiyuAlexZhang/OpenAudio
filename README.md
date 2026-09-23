@@ -173,7 +173,7 @@ Audio Plugins
 | [Modal Synthesiser](https://github.com/crispinha/modal-synth) | This is a software synthesiser that uses modal synthesis, a physical modelling technique using banks of resonators to filter an exciter signal, to create sounds with a parametrically controlled frequency spectrum. This synthesiser is designed to allow for the composition and performance of spectral music, and it produces sounds with timbres similar to those of natural materials such as wood, metal, and glass. | Instrument | JUCE |
 | [modEQ](https://github.com/tobanteAudio/modEQ) | EQ with modulation (VST3, AU) | Effect | JUCE |
 | [MultiBandEQ](https://github.com/GiorgosChr/MultiBandEQ) | A multi-band equalizer audio plugin built with [JUCE](https://juce.com/) | Effect | JUCE |
-| [MultiMeter](https://github.com/RealAlexZ/MultiMeter) | A comprehensive set of AU/VST audio analysis tools (level meters, histograms, spectrogram analyzer, goniometer, correlation meter) | Effect | JUCE |
+| [Grisey](https://github.com/ZhiyuAlexZhang/Grisey) | Free, open-source metering suite: LUFS loudness (EBU R 128), true peak, spectrum, spectrogram and goniometer in one window | Effect | JUCE |
 | [Musializer Plugin](https://github.com/ameyakakade/musializer-plugin) | Spectrum visualizer plugin | Misc | JUCE |
 | [MVerb](https://github.com/martineastwood/mverb) | Studio-quality reverb using the Dattorro’s figure-of-eight reverb structure | Effect | VSTGUI |
 | [ndc Plugs](https://www.niallmoody.com/ndcplugs/plugins.htm) | VST plugins for Windows and OSX | Misc | VSTGUI |
